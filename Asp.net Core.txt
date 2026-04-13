@@ -1,0 +1,383 @@
+Hosting- the service that allow a application to be accessible on internet.
+
+Hosting model in asp.net-
+1)in process -data live inside asp.net application memeory.  App runs inside IIS process. . 
+2)out of process - App runs on Kestrel, IIS just forwards requests. . Data live out the web application.
+
+note - asp.net core module - is responsible for loading and starting the application.
+
+how to do this in project 
+1) right on project go to edit project file .
+2)add <aspnetcorehsotingmodel>in/out process</ aspnetcorehsotingmodel>
+
+
+Middleware and pipeline -Each Middleware Component can perform some operations before and after invoking the next Middleware Component using the next method. A middleware component can also decide not to call the next middleware component, which is called short-circuiting the request pipeline.
+
+
+Static File Serving (UseStaticFiles): This option enables the serving of static files (e.g., CSS, JavaScript, images) from the wwwroot directory or any specified directory.
+Default File Serving (UseDefaultFiles): Configures a default file (e.g., index.html, default.html) to be displayed when the user accesses the root URL of a directory.
+
+Directory Browsing (UseDirectoryBrowser): Enables the option for users to view the directory contents in the browser (e.g., see the files in a folder if no default file is present).
+
+mvc -
+model - handle data and business login
+view - is handle the ui and what need to be display
+controller-handle the user request , interact the model and show in view.
+
+
+Services - Contains business logic like processing data , fetch the data.
+there are two way the implement the service -
+ex-
+1)IProductService- the file contain the methods to exist , not how they work.(what should be done)
+2)Product Service - the file contain the actual logic of data processing .(how it is done)
+controller talk to IProductService .
+ type of service are there for dependency injection-
+1)Singleton- it remain same for lifetime of application 
+. ex- build.Services.AddSingleton<IProductService,ProductService>();
+
+2)Transient- it is created every time when it requested . 
+
+build.Services.AddTransient<IProductService,ProductService>();
+3)Scoped- it is created one per request .
+
+
+
+
+
+To Controller method -
+1)AddController()- used for web API Application.
+2)AddControllersWithViews()- MVC web application.
+3) AddRazorPages()- Razor Pages.
+4)AddMvc()- for mvc and razor pages.
+
+IEnumerable- is interface which is used to iterate through a collection of data one time and they are read-only ,you cannot do add , update of Ienumerable are- list,dictinaory,array , stack ,queue.
+EX- public IEnumerable<Models.Product> GetAllProducts()
+ {
+     return _productts;
+ }
+
+Dependency Injection means:
+“Instead of creating objects yourself, let the framework provide them.”
+
+| Without DI (`new`) | With DI             |
+| ------------------ | ------------------- |
+| Hard to change     | Easy to change      |
+| Tightly coupled    | Loosely coupled     |
+| Poor testing       | Excellent testing   |
+| Manual lifecycle   | Automatic lifecycle |
+| Not scalable       | Scalable design ✅   |
+
+
+Constructor Injection- 
+Ex-
+
+ public Class HomeController:Controller{
+  private readonly IProductSerive _product;
+public HomeController(IProductSerive product){   // this is a constrictor of depency injection 
+_product=product;
+}
+}
+
+Action Method Injection -when depencey action in single object then we use.
+
+Ex: public class HomeController:Controller{
+public IActionResult Index([FromServices] IProductService Product){
+   List<Student>Allstudentdeails=Product.Getallstsudent();
+return AllStudentdeatils;
+}
+}
+
+
+Data Passing Technique-
+
+1)ViewData- the is used to send the data from controller to view in key value pair. ex -
+COntrollers                                                  View Page
+
+public IActionResult Index(){                          // @{
+
+  Student student=new Student(){                                var student=ViewData["Student"].projectname.Models.Student;
+                                                             } <div>Student:@student.id</di
+ ViewData["Student"]=student;
+return View ();
+
+2)Viewbag- Is also do the same thing but main key is that they allow as to dynamic data .
+ex-COntrollers                                                  View Page
+
+public IActionResult Index(){                          // @{
+
+  Student student=new Student(){                                var student=Viewbag.Student;
+                                                             } <div>Student:@student.id</div
+ Viewbag.Studnet=student;  // main key line
+return View ();
+
+3)Strongly Typed Views- in this data pass we directly pass model to view.
+ex-COntrollers                                                  View Page
+
+public IActionResult Index(){                          // @model.ProjectName.Models.Student
+                                                           <div>Id:@Model.Id</div>
+   // main key line
+return View (student);
+
+4)ViewModel type: in this when more then one model then it used then using two or three model me create new model.
+Ex-public class student{                  public class Teacher{                             public class Combine{
+   public name {get; set;}                public name {get; set;}                                public student student{get; set;}
+                                                                                               public Teacher Teacher{get; set;}
+
+}                                             }                                                 }
+
+
+4)TempData-is used when the data is passed from action method to another .
+
+Ex- public  InActionIndex(){
+  tempdata["message"]="the registration is success"          in view <div>@tempdata[""message]
+  return Redirection Action("Success")
+}
+public IActionResult Sucees(){
+  var mesage=tempdata["message"];
+return View( message); 
+
+the tempdata is store in application in two way-
+1)session-based tempdata .
+2)cookie baes tempdata
+EX-   builder.Services.AddSession(product =>
+{
+    product.IdleTimeout = TimeSpan.FromMinutes(30);
+    product.Cookie
+    .HttpOnly = true;
+    product.Cookie.IsEssential = true;
+});
+
+
+5)PRG(Post redirecting get)-ex- for eaxmple a form page first we get the form page , then do the post method to save deatils then it redirect to  response which is get method.
+So this method of data transfer is used when we do form submission, comment,orders, regiseration.
+
+
+
+Routing - it is mechanism which inspect the http request from fontend and process it to it particular  controller action.
+type-
+
+| Feature          | Convention Routing       | Attribute Routing      |
+| ---------------- | ------------------------ | ---------------------- |
+| Defined Where?   | Program.cs / RouteConfig | On Controller & Action |
+| Flexibility      | Low                      | High                   |
+| Best For         | MVC apps                 | Web APIs               |
+| URL Structure    | Central pattern          | Per-action custom URLs |
+| Easy to Maintain | For small apps           | For large apps         |
+
+
+
+Action Method - these method are define in controller class that responds to the particular to http request.like(get or post ).
+the thing need to remember in make this method-1)first method should be public, 2)it cannot be overloaded 3)it cannot be static  4)IActionResult is a base class for .
+some Dervied Classes of action result-
+1)ViewResult- represenet the view. ex- public ViewResult(){ return View();   }
+2)JsonResult- represent the json data.
+3)FileResult- represent the file .
+4)RedirectResult- it direct to different page.
+5)Contentresult-represent the plain text.
+5)StatuCodeResult- represent as http status code.
+
+| ActionResult                 | IActionResult                                   |
+| ---------------------------- | ----------------------------------------------- |
+| A *class*                    | An *interface*                                  |
+| Contains common result types | Any class implementing IActionResult is allowed |
+| Old MVC style                | Modern, flexible (recommended in ASP.NET Core)  |
+public ActionResult Index(){return View();}  |  public IActionResult Indx(){ if(true) return View(); else  return Redirect("Home");}
+
+
+HTML Helpers- these are method which help you in razor to generate htm view page.
+
+Ex- @html.textbox("Name")
+
+Two types: Standard and Strongly Typed
+
+Strongly-Typed Helpers are safer and recommended
+
+They work with model binding and validation.
+
+
+
+For Hosting any Service which run on backend to send a noti- there are the way 
+
+| Feature                    | HostedService | Hangfire | Quartz   | Azure Timer |
+| -------------------------- | ------------- | -------- | -------- | ----------- |
+| Runs inside your app       | ✔             | ✔        | ✔        | ❌ Separate  |
+| Stops if app stops         | ✔             | ❌        | ❌        | ❌           |
+| Accurate scheduling        | ❌             | ✔        | ✔✔       | ✔           |
+| Dashboard                  | ❌             | ✔        | ❌        | ❌           |
+| Retry on failure           | ❌             | ✔        | ✔        | ✔           |
+| Database required          | ❌             | ✔        | Optional | ❌           |
+| Best for 1-min repeat jobs | ⚠️            | ✔✔       | ✔        | ✔           |
+| Cloud-only                 | ❌             | ❌        | ❌      | ✔ (Azure)   |
+
+Model binding in as.net-
+
+| Source   | Attribute        | Example Usage          |
+| -------- | ---------------- | ---------------------- |
+| Route    | `[FromRoute]`    | `/user/15`             |
+| Query    | `[FromQuery]`    | `?page=1`              |
+| Form     | `[FromForm]`     | POST form submit       |
+| Body     | `[FromBody]`     | JSON (Web API)         |
+| Header   | `[FromHeader]`   | Authorization headers  |
+| Services | `[FromServices]` | Inject services        |
+| Cookies  | `[FromCookie]`   | AuthToken, preferences |
+
+Ex- "User":{
+ "name": "Akash",
+  "address": { "city": "Kanpur", "pincode": 208001 }
+
+}
+
+ex in controller - public IactionResult save([FormBody] User user{
+}
+
+
+Entity Framework - it help to work with database using C# object instead of creating the sql queries. Entity Framework is an ORM (Object-Relational Mapper).
+
+Data Annotations-used for validation ,display formatting , database mapping.
+Ex- [Required]  
+public string name{ get; set;}
+2)[JsonPropertyName("name")]   // this is for api payload , this data Annotations
+public string Name{ get; set:}
+
+Model Validation - the property used for model class, the method which make data enter in particular entry should be valid.
+ex- [Require(ErrorMessage="Please Enter the name")]
+public string name {get; set;}
+type- 1) Client Side 
+2) Server Side 
+3)Database validation.
+
+In razor page ex- <span asp-validation-for="name"></span>
+Flow -Request → Model Binding → Data Annotation Validation → ModelState → Controller.
+
+Fluent Api- mainly used along with entity framework to configure database model rather using of data Annotation.
+in data base these are used with keyword-OnModelCreating()
+
+
+
+ex- proctected override void OnModelCreating(ModelBuilder modelBuilder){
+
+                 modelBuilder.Entity<User>().HashKey(u=>u.Id);
+
+                 modelBuilder.Entity<User>().ToTable("Users");
+}
+
+Cookie- is it small piece of information store in client side sended by server side .
+there are two type of -
+1)Persistent Cookies- this cookie remain evenafter the browser is closed.Ex- login 
+2)Non Persistent Cookies- this cookie remain exist ony during the browsing session.Ex-shopping carts, session management.
+
+View in Database - it is table create in database to just the data from multiple table .
+ex- create view table_name as us.name , us.Father ,sa.amount 
+from [user] us join salary sa on 
+us.id=sa.userid.
+
+Temp Table---A temp table is a temporary table used to store data temporarily for the session or transaction. There are two types:
+
+Local temp table: Exists only during the session in which it was created (e.g., #TempTable).ex - create #User(Id int identity(1,1),Name Varchar(20));
+Global temp table: Visible to all sessions and users (e.g., ##TempTable).
+
+Common LINQ operators:
+Where(), Select(), Any(), FirstOrDefault(), OrderBy(), Include().
+
+Tracking vs NoTracking in EF Core (VERY IMPORTANT)
+Tracking-when EF fetch the data it keep the record , and if any change happen happen it automatically update the change. Generally used for -update , deleted, insert.
+ex- {
+var user=_context.Users.FirstorDefault(x=>x.id==1)
+user.Name="Akash"
+_context.Savechanges();
+}
+NoTracking- it does not track the record of data , mainly for reading it is faster because does not use any memory.
+you can update here alos but need to manage it manually. by using _context.Users.Update(user)
+ex= var user=_context.Users.AsNoTracking.FirstOrDefault(x=>x.id==1)
+
+Filter- Before an HTTP request is handled by a controller action method.
+After an HTTP request is handled by a controller action method.
+After the response is generated but before it is sent to the client.
+ Filters are typically configured using attributes (e.g., [Authorize], [AllowAnonymous], etc.) on controllers or action methods.
+
+Note -filter is just action method of controller but middleware is global kind of thing .
+
+
+Caching- it something mean storing some data in temporary storage that can be accessed easy and can be quickly retrieved.
+
+type of caching-
+1)In-Memory Caching:it is very simple storage used for single server , used to store in web server storage.
+2)Distributed Caching: this ideal for multiple server , when data is shared to a multiple server , we uses redis, sql server,nchache.
+3)Response Caching: it used for storing the output request-response cycle in the cache for another same request to that server need not to fetch from database.
+
+5️⃣ Difference between Entity and DTO?
+Entity represents business rules and identity, while DTO is used only to transfer data between API and client.
+
+
+What is N+1 Queries ?
+
+1 to load the list (from n records)
+N is for get the the correct related data .
+
+ex-var orders=_db.Order.ToList();
+ foreach(var order in orders){
+var items=_db.OrderItems.where(i=>i.OrderId==order.id).ToList();
+
+}
+
+to Improve this query
+1)Eager loading-(include using)-used to load the related data  var order=db.Orders.Include(o=>o.OrderItems).ToList();
+2)Projection- var order=_db.Order.Select(o=> new {
+o.Id,o.Name,o.count}).ToList();
+
+
+Thread - the worker who execute the code.
+Does async make DB faster? no it make better thread utilization.
+A thread is the unit that executes code. Async frees the thread while waiting for I/O, improving scalability.
+
+
+Why .Result and .Wait() are dangerous 🚨
+
+Block thread
+❌ Kill scalability
+❌ Can create deadlocks
+❌ Reduce performance
+
+| Concept     | Meaning                   |
+| ----------- | ------------------------- |
+| Thread      | Worker                    |
+| Task        | Future result             |
+| Thread Pool | Workers collection        |
+| await       | Free thread while waiting |
+| .Result     | Blocks thread             |
+ 
+
+First and FisrtOrDefault- 
+first- it throw error if data is not found. var order=_db.Orders.First(x=>x.Id).
+FirstOrDefault- if don't have the match then return null. ex- var order=db.Orders.FirstOrDefault(x=>x.Id).
+
+AnyAsync - 👉 It checks whether at least one record exists in the database.
+
+Navigation Property? is used do find the relation between the table.
+
+public user{
+public int id{get;set;}
+public Order Order {get; set;}
+}
+
+
+Pagination -limit the data returned per request to improve the performance.
+ex- var order=await _db.Order.Skip(0).Take(10).ToListAsync();
+
+
+How to avoid the rendering of the page - we can use react.memo to memoroize the component the to avoid the re render if props haven't changed.
+additionally we can use usecallback to memorize the function 
+
+“React.memo + useCallback + useMemo + shallow comparison + avoid unnecessary renders”
+
+
+the method of indexing in database 
+Clustered → for data ordering & range queries  ex - create clustered index newuser on student(id)
+Non-clustered → for fast lookups on multiple columns  ex- create nonclusterd index newuser on student(id)
+
+
+
+
+
+
+
