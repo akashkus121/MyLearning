@@ -21,3 +21,6 @@ git push -u origin main
 🌿 Check branch
 git branch
 → Shows current branch (main or master)
+
+
+one branch only have one pull request , we cannot create two pull request for one branch , so for that we have to create new branch and need to merge
