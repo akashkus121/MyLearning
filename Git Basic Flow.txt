@@ -1,0 +1,23 @@
+Git Basic Flow
+
+git init
+→ Initialize a new Git repository
+git status
+→ Check current file status (new/modified/staged)
+git add .
+→ Add all files to staging area
+git commit -m "message"
+→ Save changes with a commit message
+
+
+🌐 Connect to GitHub (only first time)
+git remote add origin <repo-url>
+→ Link local repo to GitHub repo
+🚀 Push code to GitHub
+git push -u origin main
+→ Push code to main branch and set upstream
+
+
+🌿 Check branch
+git branch
+→ Shows current branch (main or master)
