@@ -81,8 +81,17 @@ Dic["full name"]="Akash Kumar"  add this is how we can add new key value pair in
 
 Dic["name"]="Rahul"  this is how we can update the value of existing key in dictionary
 
+to print list of all key value pair in dictionary we can use items() method
 
+## deep copy and shallow copy in list and dictionary
 
+ newdic=Dic
+Dec["name"]="Rahul"
+print(Dic)  out- name: Rahul, age: 20, address: Kanpur
+print(newdic) out- name: Rahul, age: 20, address: Kanpur
+
+so to avoid this we can use
+shallow copy - newdic=Dic.copy()  this is how we can create shallow copy of dictionary
 
 
 
