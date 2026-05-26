@@ -173,6 +173,7 @@ note - “While building UI in React, I focus on reusable components, proper sta
 | `React.memo()`  | Component | Prevent re-render        |
 
 
-
+Delegate is used to pass methods as parameters and store method references.
+Event is used to notify when an action happens (like button click), and it is built on delegates.
 
  
