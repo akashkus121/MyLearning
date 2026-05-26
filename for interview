@@ -176,4 +176,40 @@ note - “While building UI in React, I focus on reusable components, proper sta
 Delegate is used to pass methods as parameters and store method references.
 Event is used to notify when an action happens (like button click), and it is built on delegates.
 
+LINQ = Language Integrated Query
+It is used to query, filter, search, sort, and manipulate data from collections, arrays, lists, database, XML, etc.
+Instead of writing loops (for, foreach) again and again, LINQ makes code short, readable, and easy
+
+ex- Without LINQ
+
+Example: Get even numbers
+
+List<int> numbers = new List<int>()
+{
+    1,2,3,4,5,6
+};
+
+List<int> even = new List<int>();
+
+foreach(var n in numbers)
+{
+    if(n % 2 == 0)
+    {
+        even.Add(n);
+    }
+}
+
+With LINQ
+
+Same thing:
+
+using System.Linq;
+
+List<int> numbers = new List<int>()
+{
+    1,2,3,4,5,6
+};
+
+var even = numbers.Where(x => x % 2 == 0).ToList();
+
  
