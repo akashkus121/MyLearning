@@ -1,0 +1,178 @@
+JavaScript feature in Es+6- 
+
+1) let and const are used rather then using var 
+2) Arrow Function - const add=(a,b)=> a+b;
+3) template literals- string interpolation using  backticks.
+4)Destructing- extract value from arrays or objects easily.
+5)Spread Operator - copy or merge (...).
+
+
+css - used for desgining 
+
+1) selector -<h1>Akash</h1>
+here h1 is a selector 
+and it css will  h1{
+                  color:red;
+}
+
+2) inline css 
+
+3) external css - <link rel="stylesheet" href="style.css"/>
+
+
+4) margin->outside spacing 
+padding is inside spacing 
+
+ex- .box{
+padding:20px;
+}
+
+5) border and border radius -
+   .box{
+boder:2px solid black;
+}
+6) Border Radius- button{
+border-radius :10px}
+
+
+7) Flex box - is used for one direction like navbar and menu or footer
+
+.container{
+display:flex;
+justify-content:center - mean from left to right
+flex-directions:row/colum;
+}
+ 
+8)grid - it used for 2b layout in which row and col are there 
+.grid-container{
+   display:grid;
+  grid-template-colums:repeat(2,1fr) - 2 mean col , 1fr mean row
+}
+
+
+Boostrap- is css framework that help us to build the ui using prebuild classes.
+
+ex- <button class="btn btn-primary">
+  submit</button>
+
+in boostrap used container for spacing 
+
+<div class="conatiner>
+<h1>Akash</h1>
+</div>
+
+and margin and padding is done like class="m-3" and class="p-3"
+
+
+
+Tailwind- is utility(mean small ready-made css) first css framework  
+
+<button class="bg-color-500 text-white px-4 py-2 rounded">
+
+bg-is background color 
+text-white- text color white 
+px-4 - horizontal padding 
+py- vertical padding
+rounded -rounded corner 
+
+
+note important-
+
+CSS is used when I need custom styling and full control over UI. It is the foundation of frontend development and helps understand layouts, Flexbox, Grid, and responsiveness.
+
+Bootstrap is useful when I want to develop UI quickly using ready-made components like navbar, cards, forms, and modals. I prefer it for admin panels or ASP.NET projects where fast development is important.
+
+Tailwind CSS is useful for modern and highly customized UI, especially in React applications. It provides utility classes that help build responsive designs quickly without writing separate CSS files.
+
+
+
+why to use  react and when not to use -
+
+when ui is a complex and dynamic state that change frequently like dashboard with live data, filter and interactive component.
+as you know react work on virtual dom model 
+
+working to react- when the state/props change , react re run  the  function component and produce the virtual dom - a lightweight js object tree ,not actual actual browser ,then check the change  from real dom and virtual dom , after that it commit only those to change to real dom. that is why react is faster because it didn't touch the real dom until unless the change are made.
+
+note -React uses a Diffing Algorithm to compare the old Virtual DOM and new Virtual DOM. It identifies only the changed elements and updates only those parts in the real DOM, which improves performance.
+
+
+when not to use react - not for static page in which nothing change like landing page /blog page 
+
+
+why to use node js for backend -Node.js is used for backend because it is fast, scalable, event-driven, and uses non-blocking I/O. It allows developers to use JavaScript for both frontend and backend, making development faster and easier. It is especially useful for APIs and real-time applications.
+
+
+What is ACID?
+ACID is a set of 4 rules that guarantee database transactions are reliable.
+
+1)A — Atomicity ("All or Nothing")
+Either the entire transaction succeeds, or nothing happens.
+
+2)C — Consistency ("Valid State Always")
+The DB must go from one valid state to another. Rules/constraints are never broken.
+
+3)I — Isolation ("Transactions Don't See Each Other Mid-Way")
+Concurrent transactions don't interfere. Each runs as if it's alone.
+
+4)D — Durability ("Committed = Permanent")
+Once committed, data survives crashes, power loss, etc. (written to disk).
+
+Database Terms (Simple)
+Normalization → Process of reducing duplicate data by dividing tables properly.
+Functional Dependency (FD) → When one column determines another column. Example: EmployeeId → EmployeeName.
+1NF → Remove multiple values from one column.
+2NF → Remove partial dependency.
+3NF → Remove transitive dependency.
+BCNF → Stronger version of 3NF for better normalization.
+Primary Key → A column that uniquely identifies each row.
+Foreign Key → A column that connects one table to another table.
+Identity → Auto-generates numbers automatically (1,2,3...).
+Candidate Key → Columns that can become a primary key.
+Composite Key → Primary key made of multiple columns.
+Unique Key → Prevents duplicate values but allows one NULL.
+Index → Improves query search speed.
+View → Virtual table created from a SQL query.
+Stored Procedure → Pre-written SQL code that can be reused.
+Trigger → Automatically runs when INSERT, UPDATE, or DELETE happens.
+Join → Combines data from multiple tables.
+Clustered Index → Physically sorts table data.
+Non-Clustered Index → Creates separate structure for faster searching.
+Materialization → Storing query results physically for faster access.
+Denormalization → Adding duplicate data intentionally for better performance.
+ACID Properties → Rules to maintain safe and consistent transactions.
+Transaction → Group of SQL operations executed together.
+Deadlock → When two queries block each other.
+Schema → Structure/design of a database.
+Constraint → Rules applied on columns (NOT NULL, UNIQUE, etc.).
+
+
+
+ The main Key feature in HTML5-
+
+Semantic tags- Better structure of webpage.
+Examples: <header>, <footer>, <section>, <article>, <nav>
+Video Support → Play video without Flash.
+Canvas Element → Used for drawing graphics, charts, games.
+Local Storage → Store data in browser.
+Web Storage → localStorage and sessionStorage.
+
+
+| Local Storage       | Session Storage         |
+| ------------------- | ----------------------- |
+| Permanent           | Temporary               |
+| Remains after close | Removed after tab close |
+| ~5–10MB             | ~5MB                    |
+
+
+note - “While building UI in React, I focus on reusable components, proper state management, props, responsive design, clean folder structure, API handling, conditional rendering, performance optimization, and maintaining clean and user-friendly UI.”
+
+| Hook            | Used For  | Purpose                  |
+| --------------- | --------- | ------------------------ |
+| `useCallback()` | Function  | Memoize function         |
+| `useMemo()`     | Value     | Memoize calculated value |
+| `React.memo()`  | Component | Prevent re-render        |
+
+
+
+
+ 
